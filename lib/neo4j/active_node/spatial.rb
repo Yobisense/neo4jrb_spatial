@@ -52,6 +52,14 @@ module Neo4j
             .proxy_as(model, :node)
         end
 
+        scope :contains, ->(coordinate, layer_name = nil) do
+          layer = layer_name || model.spatial_layer.name
+
+          Neo4j::ActiveBase.current_session
+              .contains(layer, coordinate, execute: false)
+              .proxy_as(model, :node)
+        end
+
         scope :closest, ->(coordinate, distance = 100, layer_name = nil) do
           layer = model.spatial_layer.name || layer_name
 

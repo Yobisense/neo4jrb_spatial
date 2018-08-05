@@ -114,6 +114,15 @@ module Neo4j
         wrap_spatial_procedure('closest', options, execute: execute)
       end
 
+      def contains(layer, coordinate, execute: true)
+        options = {
+            layer: layer,
+            coordinate: coordinate
+        }
+
+        wrap_spatial_procedure('contains', options, execute: execute)
+      end
+
       def import_shapefile_to_layer(layer, file_uri, execute: true)
         options = {layer: layer, file_uri: file_uri}
         execution_args = {execute: execute, node: false}
