@@ -25,9 +25,8 @@ module Neo4j
           def create_layer
             fail 'layer not found' unless spatial_layer.name
 
-            lon_name, lat_name = spatial_layer.config.split(':')
 
-            Neo4j::ActiveBase.current_session.add_layer(spatial_layer.name, spatial_layer.type, lat_name, lon_name)
+            Neo4j::ActiveBase.current_session.add_layer(spatial_layer.name, spatial_layer.type, spatial_layer.config)
           end
 
           def remove_layer

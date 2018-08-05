@@ -12,14 +12,13 @@ module Neo4j
         query('CALL spatial.procedures() YIELD name').map(&:name)
       end
 
-      def add_layer(name, type = nil, lat = nil, lon = nil)
+      def add_layer(name, type = 'SimplePoint', encoder_config = nil)
         # supported names for type are: 'SimplePoint', 'WKT', 'WKB'
-        type ||= 'SimplePoint'
 
         options = {
           name: name,
-          type: type || 'point',
-          encoderConfig: "#{lon || 'lon'}:#{lat || 'lat'}"
+          type: type ,
+          encoderConfig: encoder_config
         }
         wrap_spatial_procedure('addLayer', options)
       end
